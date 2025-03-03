@@ -2,31 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Hotel.DTO;
+package Cabelereiro.DTO;
 
 /**
  *
  * @author luizg
  */
-public class HospedesDTO {
+public class ClientesDTO {
 
     private int id;
     private String nome;
     private String cpf;
-    private String dataNascimento;
+    private String horaAtendimento;
     private String telefone;
-    private String email;
-    private String sexo;
     
-   
 
-    public HospedesDTO( String nome, String cpf, String dataNascimento, String telefone, String email, String sexo) {
+    public ClientesDTO( String nome, String cpf, String horaAtendimento, String telefone) {
         this.nome = nome;
         this.cpf = cpf;
-        this.dataNascimento = dataNascimento;
+        this.horaAtendimento = horaAtendimento;
         this.telefone = telefone;
-        this.email = email;
-        this.sexo = sexo;
     }
 
     public int getId() {
@@ -53,12 +48,12 @@ public class HospedesDTO {
         this.cpf = cpf;
     }
 
-    public String getDataNascimento() {
-        return dataNascimento;
+    public String setHararioDeAtendimento() {
+        return horaAtendimento;
     }
 
-    public void setDataNascimento(String dataNascimento) {
-        this.dataNascimento = dataNascimento;
+    public void setHararioDeAtendimento(String horaAtendimento) {
+        this.horaAtendimento = horaAtendimento;
     }
 
     public String getTelefone() {
@@ -69,21 +64,8 @@ public class HospedesDTO {
         this.telefone = telefone;
     }
 
-    public String getEmail() {
-        return email;
+    public String getHorarioDeAtendimento() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public void setEmail(String email) {
-        this.email = email;
     }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-    
-    
-}

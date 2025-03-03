@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.photel;
+package com.mycompany.pcabelereiro;
 
-import Hotel.DAO.UsuarioDAO;
-import Hotel.gui.TelaHospedes;
-import Hotel.gui.TelaLogin;
+import Cabelereiro.DAO.UsuarioDAO;
+import Cabelereiro.gui.TelaClientes;
+import Cabelereiro.gui.TelaLogin;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -22,9 +22,9 @@ public class LoginController {
         
         if (loginValido) {
             JOptionPane.showMessageDialog(telaL, "Login realizado com sucesso");
-            // Abre a TelaHospedes
-            TelaHospedes telaHospedes = new TelaHospedes();
-            telaHospedes.setVisible(true);
+            // Abre a TelaClientes
+            TelaClientes telaClientes = new TelaClientes();
+            telaClientes.setVisible(true);
             telaL.dispose(); // Fecha a tela de login após login bem-sucedido
         } else {
             JOptionPane.showMessageDialog(telaL, "ERRO! Verifique se os campos estão corretos");

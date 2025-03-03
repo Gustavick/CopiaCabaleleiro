@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Hotel.gui;
+package Cabelereiro.gui;
 
 import ConexaoBD.Conexao;
-import Hotel.DAO.HospedesDAO;
-import Hotel.DTO.HospedesDTO;
+import Cabelereiro.DAO.ClientesDAO;
+import Cabelereiro.DTO.ClientesDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,18 +20,18 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author luizg
  */
-public class TelaHospedes extends javax.swing.JFrame {
+public class TelaClientes extends javax.swing.JFrame {
 
 
 /**
-     * Creates new form Hospedes
+     * Creates new form Clientes
      */
-    public TelaHospedes() {
+    public TelaClientes() {
     initComponents();
     try {
         Connection conexao = new Conexao().getConnection(); // Obtendo conexão
-        new HospedesDAO(conexao); // Passando a conexão para o DAO
-        listarHospedes(); // Chamando o método para listar os hóspedes
+        new ClientesDAO(conexao); // Passando a conexão para o DAO
+        listarClientes(); // Chamando o método para listar os clientes
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Erro ao conectar ao banco: " + e.getMessage());
     }
@@ -51,18 +51,14 @@ public class TelaHospedes extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtSexo = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtDataNascimento = new javax.swing.JTextField();
+        txtHorarioDeAtendimento = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         txtCpf = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblHospedes = new javax.swing.JTable();
+        tblClientes = new javax.swing.JTable();
         CadastrarButton = new javax.swing.JButton();
         AtualizarButton = new javax.swing.JButton();
         ExcluirButton = new javax.swing.JButton();
@@ -71,13 +67,13 @@ public class TelaHospedes extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 51, 0));
 
-        jPanel1.setBackground(new java.awt.Color(204, 51, 0));
-        jPanel1.setForeground(new java.awt.Color(153, 51, 0));
+        jPanel1.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel1.setForeground(new java.awt.Color(255, 102, 204));
 
-        jLabel1.setFont(new java.awt.Font("Calibri", 0, 36)); // NOI18N
-        jLabel1.setText("Hospedes");
+        jLabel1.setFont(new java.awt.Font("Calibri", 3, 48)); // NOI18N
+        jLabel1.setText("Clientes");
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel2.setText("Nome");
 
         txtNome.addActionListener(new java.awt.event.ActionListener() {
@@ -86,22 +82,16 @@ public class TelaHospedes extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        jLabel3.setText("Sexo");
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setText("Horario de Atendimento");
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        jLabel4.setText("Data de Nascimento");
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("CPF");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel6.setText("Telefone");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        jLabel7.setText("Email");
-
-        tblHospedes.setModel(new javax.swing.table.DefaultTableModel(
+        tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -112,13 +102,13 @@ public class TelaHospedes extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblHospedes.setModel(new DefaultTableModel(     new Object[][]{},      new String[]{"Nome", "CPF", "DataNascimento", "Telefone", "Email", "Sexo"} ));
-        tblHospedes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblClientes.setModel(new DefaultTableModel(     new Object[][]{},      new String[]{"Nome", "CPF", "DataNascimento", "Telefone", "Email", "Sexo"} ));
+        tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblHospedesMouseClicked(evt);
+                tblClientesMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblHospedes);
+        jScrollPane1.setViewportView(tblClientes);
 
         CadastrarButton.setText("Cadastrar");
         CadastrarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -156,40 +146,41 @@ public class TelaHospedes extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(CadastrarButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(AtualizarButton)
-                        .addGap(29, 29, 29)
-                        .addComponent(ExcluirButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(CarregarButton)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
+                                .addGap(12, 12, 12)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtHorarioDeAtendimento, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                                .addGap(390, 390, 390))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(94, 94, 94)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(txtSexo, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-                                        .addGap(42, 42, 42)
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtDataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-                                        .addGap(191, 191, 191))
-                                    .addComponent(txtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
                                     .addComponent(txtCpf)
-                                    .addComponent(txtNome)
-                                    .addComponent(txtEmail))))
-                        .addContainerGap())))
+                                    .addComponent(txtTelefone)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(109, 109, 109)
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtNome)))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(CadastrarButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(AtualizarButton)
+                                .addGap(29, 29, 29)
+                                .addComponent(ExcluirButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(CarregarButton))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,14 +191,10 @@ public class TelaHospedes extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtNome))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel4))
-                    .addComponent(txtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4)
+                    .addComponent(txtHorarioDeAtendimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -216,12 +203,8 @@ public class TelaHospedes extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTelefone)
                     .addComponent(jLabel6))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7)
-                    .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                .addGap(58, 58, 58)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CadastrarButton)
@@ -252,19 +235,19 @@ public class TelaHospedes extends javax.swing.JFrame {
 
     private void AtualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarButtonActionPerformed
       try {
-          atualizarHospede();
+          atualizarClientes();
       } catch (SQLException ex) {
-          Logger.getLogger(TelaHospedes.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(TelaClientes.class.getName()).log(Level.SEVERE, null, ex);
       }
-        listarHospedes();
-        limparCamposHospede();
+        listarClientes();
+        limparCamposClientes();
     }//GEN-LAST:event_AtualizarButtonActionPerformed
 
     private void ExcluirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirButtonActionPerformed
 
-        excluirHospede();
-        listarHospedes();
-        limparCamposHospede();
+        excluirClientes();
+        listarClientes();
+        limparCamposClientes();
     }//GEN-LAST:event_ExcluirButtonActionPerformed
 
     private void CarregarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CarregarButtonActionPerformed
@@ -272,18 +255,18 @@ public class TelaHospedes extends javax.swing.JFrame {
     }//GEN-LAST:event_CarregarButtonActionPerformed
 
     private void CadastrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarButtonActionPerformed
-        cadastrarHospedes();
+        cadastrarClientes();
     }//GEN-LAST:event_CadastrarButtonActionPerformed
 
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeActionPerformed
 
-    private void tblHospedesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHospedesMouseClicked
-          int selectedRow = tblHospedes.getSelectedRow();
+    private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
+          int selectedRow = tblClientes.getSelectedRow();
     System.out.println("📌 Linha clicada: " + selectedRow);
 
-    }//GEN-LAST:event_tblHospedesMouseClicked
+    }//GEN-LAST:event_tblClientesMouseClicked
 
     /**
      * @param args the command line arguments
@@ -302,21 +285,23 @@ public class TelaHospedes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaHospedes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaClientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaHospedes().setVisible(true);
+                new TelaClientes().setVisible(true);
             }
         });
     }
@@ -328,29 +313,23 @@ public class TelaHospedes extends javax.swing.JFrame {
     private javax.swing.JButton ExcluirButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblHospedes;
+    private javax.swing.JTable tblClientes;
     private javax.swing.JTextField txtCpf;
-    private javax.swing.JTextField txtDataNascimento;
-    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtHorarioDeAtendimento;
     private javax.swing.JTextField txtNome;
-    private javax.swing.JTextField txtSexo;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
-private void cadastrarHospedes() {
+private void cadastrarClientes() {
     // Capturando os dados do textField
     String nome = txtNome.getText();
     String cpf = txtCpf.getText().trim();
     String telefone = txtTelefone.getText().trim();
-    String email = txtEmail.getText().trim();
-    String sexo = txtSexo.getText().trim();
-    String dataNascimento = txtDataNascimento.getText().trim();
+    String horarioAtendimento = txtHorarioDeAtendimento.getText().trim();
 
     if (cpf.isEmpty() || telefone.isEmpty() || nome.isEmpty()) {
         JOptionPane.showMessageDialog(null, "❌ Preencha todos os campos obrigatórios!", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -358,44 +337,44 @@ private void cadastrarHospedes() {
     }
 
     try {
-        // Criando o objeto HospedeDTO
-        HospedesDTO novoHospede = new HospedesDTO(nome, cpf, dataNascimento, telefone, email, sexo);
+        // Criando o objeto ClientesDTO
+        ClientesDTO novoCliente = new ClientesDTO(nome, cpf, horarioAtendimento, telefone);
         
-        System.out.println("Dados capturados do formulario: " + novoHospede.toString());
+        System.out.println("Dados capturados do formulario: " + novoCliente.toString());
 
         // Query SQL para inserir o hóspede
-        String query = "INSERT INTO hospedes (nome, cpf, telefone, email, sexo, dataNascimento) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO clientes (nome, cpf, telefone, hararioAtendimento) VALUES (?, ?, ?, ?, ?, ?)";
 
         // Executa o comando SQL usando o método da classe Conexao
-        boolean sucesso = Conexao.executarComandoSQL(query, nome, cpf, telefone, email, sexo, dataNascimento);
+        boolean sucesso = Conexao.executarComandoSQL(query, nome, cpf, telefone, horarioAtendimento);
 
         if (sucesso) {
             JOptionPane.showMessageDialog(null, "Hóspede cadastrado com sucesso.");
-            listarHospedes(); // Atualiza a tabela
-            limparCamposHospede();
+            listarClientes(); // Atualiza a tabela
+            limparCamposCliente();
         } else {
-            JOptionPane.showMessageDialog(null, "Erro ao cadastrar hóspede.", "Erro", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar clientes.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Erro ao cadastrar hóspede: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Erro ao cadastrar clientes: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
     }
 }
 
-private void atualizarHospede() throws SQLException {
-    int selectedRow = tblHospedes.getSelectedRow(); // 🔹 Obtém a linha selecionada
+private void atualizarClientes() throws SQLException {
+    int selectedRow = tblClientes.getSelectedRow(); // 🔹 Obtém a linha selecionada
     System.out.println("📌 Tentando atualizar... Linha selecionada: " + selectedRow);
 
     if (selectedRow == -1) {  // Se nenhuma linha estiver selecionada, exibe erro
-        JOptionPane.showMessageDialog(null, "❌ Nenhum hóspede foi selecionado!", "Erro", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "❌ Nenhum cliente foi selecionado!", "Erro", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    // Obtém o CPF do hóspede selecionado
-    String cpfHospedeSelecionado = (String) tblHospedes.getValueAt(selectedRow, 1); // Coluna 1 = CPF
-    System.out.println("📌 CPF do hóspede selecionado: " + cpfHospedeSelecionado);
+    // Obtém o CPF do cliente selecionado
+    String cpfClienteSelecionado = (String) tblClientes.getValueAt(selectedRow, 1); // Coluna 1 = CPF
+    System.out.println("📌 CPF do cliente selecionado: " + cpfClienteSelecionado);
 
-    if (cpfHospedeSelecionado.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "CPF do hóspede inválido.", "Erro", JOptionPane.ERROR_MESSAGE);
+    if (cpfClienteSelecionado.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "CPF do cliente inválido.", "Erro", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
@@ -403,106 +382,107 @@ private void atualizarHospede() throws SQLException {
     String nome = txtNome.getText();
     String cpf = txtCpf.getText();
     String telefone = txtTelefone.getText();
-    String email = txtEmail.getText();
-    String sexo = txtSexo.getText();
-    String dataNascimento = txtDataNascimento.getText();
+    String horarioAtendimento = txtHorarioDeAtendimento.getText();
 
-    if (nome.isEmpty() || cpf.isEmpty() || telefone.isEmpty() || email.isEmpty() || sexo.isEmpty() || dataNascimento.isEmpty()) {
+    if (nome.isEmpty() || cpf.isEmpty() || telefone.isEmpty() || horarioAtendimento.isEmpty()) {
         JOptionPane.showMessageDialog(null, "❌ Preencha todos os campos!", "Erro", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    // SQL para atualizar o hóspede
-    String query = "UPDATE hospedes SET nome = ?, cpf = ?, telefone = ?, email = ?, sexo = ?, dataNascimento = ? WHERE cpf = ?";
+    // SQL para atualizar o hospede
+    String query = "UPDATE clientes SET nome = ?, cpf = ?, telefone = ?, hararioAtendimento = ? WHERE cpf = ?";
 
-    boolean sucesso = Conexao.executarComandoSQL(query, nome, cpf, telefone, email, sexo, dataNascimento, cpfHospedeSelecionado);
+    boolean sucesso = Conexao.executarComandoSQL(query, nome, cpf, telefone, horarioAtendimento, cpfClienteSelecionado);
 
     if (sucesso) {
-        JOptionPane.showMessageDialog(null, "✅ Hóspede atualizado com sucesso.");
-        listarHospedes();  // Atualiza a tabela
+        JOptionPane.showMessageDialog(null, "✅ Cliente atualizado com sucesso.");
+        listarClientes();  // Atualiza a tabela
     } else {
-        JOptionPane.showMessageDialog(null, "❌ Erro ao atualizar o hóspede.", "Erro", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "❌ Erro ao atualizar o cliente.", "Erro", JOptionPane.ERROR_MESSAGE);
     }
 }
 
-private void excluirHospede() {
-    int selectedRow = tblHospedes.getSelectedRow(); // Obtém a linha selecionada
+private void excluirCliente() {
+    int selectedRow = tblClientes.getSelectedRow(); // Obtém a linha selecionada
 
-    if (selectedRow == -1) {  // Verifica se um hóspede foi selecionado
-        JOptionPane.showMessageDialog(null, "Selecione um hóspede para excluir.", "Erro", JOptionPane.ERROR_MESSAGE);
+    if (selectedRow == -1) {  // Verifica se um cliente foi selecionado
+        JOptionPane.showMessageDialog(null, "Selecione um cliente para excluir.", "Erro", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
     // Obtém o CPF do hóspede selecionado
-    String cpfHospedeSelecionado = (String) tblHospedes.getValueAt(selectedRow, 1); // Coluna 1 = CPF
-    System.out.println("CPF do hóspede a excluir: " + cpfHospedeSelecionado);  // 🔥 Debug
+    String cpfClienteSelecionado = (String) tblClientes.getValueAt(selectedRow, 1); // Coluna 1 = CPF
+    System.out.println("CPF do cliente a excluir: " + cpfClienteSelecionado);  // 🔥 Debug
 
-    String query = "DELETE FROM hospedes WHERE cpf = ?";
+    String query = "DELETE FROM clientes WHERE cpf = ?";
 
     // Chama o método do ConexaoDAO para executar a exclusão
-    boolean sucesso = Conexao.executarComandoSQL(query, cpfHospedeSelecionado);
+    boolean sucesso = Conexao.executarComandoSQL(query, cpfClienteSelecionado);
 
     if (sucesso) {
-        JOptionPane.showMessageDialog(null, "Hóspede excluído com sucesso.");
-        listarHospedes();  // Atualiza a lista de hóspedes
+        JOptionPane.showMessageDialog(null, "Cliente excluído com sucesso.");
+        listarClientes();  // Atualiza a lista de clientes
     } else {
-        JOptionPane.showMessageDialog(null, "Erro ao excluir o hóspede.", "Erro", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Erro ao excluir o cliente.", "Erro", JOptionPane.ERROR_MESSAGE);
     }
 }
 
-private void listarHospedes() {
+private void listarClientes() {
     try {
-        String query = "SELECT * FROM hospedes";
+        String query = "SELECT * FROM cliente";
         
         // Usando a classe Conexao para obter a conexão
         try (Connection conn = new Conexao().getConnection(); // Obtém a conexão
              PreparedStatement pst = conn.prepareStatement(query);
              ResultSet rs = pst.executeQuery()) {
 
-            DefaultTableModel model = (DefaultTableModel) tblHospedes.getModel();
+            DefaultTableModel model = (DefaultTableModel) tblClientes.getModel();
             model.setNumRows(0); // Limpa a tabela antes de adicionar novos dados
 
             while (rs.next()) {
                 Object[] rowData = {
                     rs.getString("nome"),
                     rs.getString("cpf"),
-                    rs.getString("dataNascimento"),
+                    rs.getString("horarioAtendimento"),
                     rs.getString("telefone"),
-                    rs.getString("email"),
-                    rs.getString("sexo")
                 };
                 model.addRow(rowData);
             }
-            tblHospedes.repaint(); // Atualiza a tabela
-            tblHospedes.revalidate();
+            tblClientes.repaint(); // Atualiza a tabela
+            tblClientes.revalidate();
         }
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Erro ao carregar os hóspedes: " + e.getMessage());
+        JOptionPane.showMessageDialog(null, "Erro ao carregar os clientes: " + e.getMessage());
     }
 }
 
 private void carregarCampos() {
-    int selectedRow = tblHospedes.getSelectedRow();
+    int selectedRow = tblClientes.getSelectedRow();
     if (selectedRow != -1) {
-        txtNome.setText(tblHospedes.getValueAt(selectedRow, 0).toString());
-        txtCpf.setText(tblHospedes.getValueAt(selectedRow, 1).toString());
-        txtDataNascimento.setText(tblHospedes.getValueAt(selectedRow, 2).toString());
-        txtTelefone.setText(tblHospedes.getValueAt(selectedRow, 3).toString());
-        txtEmail.setText(tblHospedes.getValueAt(selectedRow, 4).toString());
-        txtSexo.setText(tblHospedes.getValueAt(selectedRow, 5).toString());
+        txtNome.setText(tblClientes.getValueAt(selectedRow, 0).toString());
+        txtCpf.setText(tblClientes.getValueAt(selectedRow, 1).toString());
+        txtHorarioDeAtendimento.setText(tblClientes.getValueAt(selectedRow, 2).toString());
+        txtTelefone.setText(tblClientes.getValueAt(selectedRow, 3).toString());
         
         
     } else {
-        System.out.println("Nenhum hóspede selecionado.");
+        System.out.println("Nenhum cliente selecionado.");
     }
 }
 
-private void limparCamposHospede() {
+private void limparCamposCliente() {
     txtNome.setText(null);
     txtCpf.setText(null);
-    txtDataNascimento.setText(null);
+    txtHorarioDeAtendimento.setText(null);
     txtTelefone.setText(null);
-    txtEmail.setText(null);
-    txtSexo.setText(null);
     txtNome.requestFocus();  
-} }
+} 
+
+    private void limparCamposClientes() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void excluirClientes() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+}
