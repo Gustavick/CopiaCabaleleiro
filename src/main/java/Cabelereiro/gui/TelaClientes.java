@@ -389,7 +389,7 @@ private void atualizarClientes() throws SQLException {
         return;
     }
 
-    // SQL para atualizar o hospede
+    // SQL para atualizar o cliente
     String query = "UPDATE clientes SET nome = ?, cpf = ?, telefone = ?, hararioAtendimento = ? WHERE cpf = ?";
 
     boolean sucesso = Conexao.executarComandoSQL(query, nome, cpf, telefone, horarioAtendimento, cpfClienteSelecionado);
