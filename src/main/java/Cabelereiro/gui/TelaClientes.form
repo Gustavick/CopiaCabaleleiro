@@ -222,7 +222,7 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblClientesMouseClicked"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="tblClientes.setModel(new DefaultTableModel(     new Object[][]{},      new String[]{&quot;Nome&quot;, &quot;CPF&quot;, &quot;DataNascimento&quot;, &quot;Telefone&quot;, &quot;Email&quot;, &quot;Sexo&quot;} ));"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="tblClientes.setModel(new DefaultTableModel(     new Object[][]{},      new String[]{&quot;Nome&quot;, &quot;CPF&quot;, &quot;horarioAtendimento&quot;, &quot;Telefone&quot;} ));"/>
               </AuxValues>
             </Component>
           </SubComponents>

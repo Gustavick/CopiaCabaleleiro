@@ -102,7 +102,7 @@ public class TelaClientes extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblClientes.setModel(new DefaultTableModel(     new Object[][]{},      new String[]{"Nome", "CPF", "DataNascimento", "Telefone", "Email", "Sexo"} ));
+        tblClientes.setModel(new DefaultTableModel(     new Object[][]{},      new String[]{"Nome", "CPF", "horarioAtendimento", "Telefone"} ));
         tblClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblClientesMouseClicked(evt);
@@ -343,7 +343,7 @@ private void cadastrarClientes() {
         System.out.println("Dados capturados do formulario: " + novoCliente.toString());
 
         // Query SQL para inserir o hóspede
-        String query = "INSERT INTO clientes (nome, cpf, telefone, hararioAtendimento) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO clientes (nome, cpf, telefone, horarioAtendimento) VALUES (?, ?, ?, ?)";
 
         // Executa o comando SQL usando o método da classe Conexao
         boolean sucesso = Conexao.executarComandoSQL(query, nome, cpf, telefone, horarioAtendimento);
@@ -390,7 +390,8 @@ private void atualizarClientes() throws SQLException {
     }
 
     // SQL para atualizar o cliente
-    String query = "UPDATE clientes SET nome = ?, cpf = ?, telefone = ?, hararioAtendimento = ? WHERE cpf = ?";
+    String query = "UPDATE clientes SET nome = ?, cpf = ?, telefone = ?, horarioAtendimento = ? WHERE cpf = ?";
+
 
     boolean sucesso = Conexao.executarComandoSQL(query, nome, cpf, telefone, horarioAtendimento, cpfClienteSelecionado);
 
@@ -429,7 +430,7 @@ private void excluirCliente() {
 
 private void listarClientes() {
     try {
-        String query = "SELECT * FROM cliente";
+        String query = "SELECT * FROM clientes";
         
         // Usando a classe Conexao para obter a conexão
         try (Connection conn = new Conexao().getConnection(); // Obtém a conexão
@@ -482,7 +483,41 @@ private void limparCamposCliente() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    private void excluirClientes() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+private void excluirClientes() {
+    int selectedRow = tblClientes.getSelectedRow(); // Obtém a linha selecionada na tabela
+
+    if (selectedRow == -1) { // Verifica se uma linha foi selecionada
+        JOptionPane.showMessageDialog(null, "❌ Nenhum cliente foi selecionado!", "Erro", JOptionPane.ERROR_MESSAGE);
+        return;
     }
-}
+
+    // Obtém o CPF do cliente selecionado (assumindo que o CPF está na segunda coluna)
+    String cpfClienteSelecionado = (String) tblClientes.getValueAt(selectedRow, 1);
+
+    // Confirmação antes de excluir
+    int confirmacao = JOptionPane.showConfirmDialog(
+        null,
+        "Tem certeza que deseja excluir o cliente com CPF " + cpfClienteSelecionado + "?",
+        "Confirmar Exclusão",
+        JOptionPane.YES_NO_OPTION
+    );
+
+    if (confirmacao == JOptionPane.YES_OPTION) {
+        try {
+            // Query SQL para excluir o cliente
+            String query = "DELETE FROM Clientes WHERE cpf = ?";
+
+            // Executa o comando SQL usando a classe Conexao
+            boolean sucesso = Conexao.executarComandoSQL(query, cpfClienteSelecionado);
+
+            if (sucesso) {
+                JOptionPane.showMessageDialog(null, "✅ Cliente excluído com sucesso.");
+                listarClientes(); // Atualiza a tabela após a exclusão
+            } else {
+                JOptionPane.showMessageDialog(null, "❌ Erro ao excluir o cliente.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro ao excluir o cliente: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+} }
